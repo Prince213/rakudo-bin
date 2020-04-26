@@ -1,9 +1,13 @@
 # rakudo-bin
+[![Build status](https://ci.appveyor.com/api/projects/status/rlkjded00sdnaep3?svg=true)](https://ci.appveyor.com/project/Prince213/rakudo-bin)
+
 Build scripts and prebuilt binaries for Rakudo.
-## Usage
+## Prebuilt binaries
+They are at [here](https://ci.appveyor.com/project/Prince213/rakudo-bin).
+## Building manually
 You need to have MSVC tools and Perl 5 in your path.
 
-Then simply run `pwsh .\BuildAndPackage.ps1` will do the rest.
+Then simply run `pwsh .\BuildAndPackage.ps1`.
 ## Options
 CoreVersion: Version of Rakudo, nqp and MoarVM.
 
@@ -12,3 +16,5 @@ ZefVersion: Version of Zef, the package manager.
 KeepBuild: Specify this option to keep build directories.
 
 KeepSource: Specify this option to keep sources.
+
+Postfix: Custom postfix for the created package.
