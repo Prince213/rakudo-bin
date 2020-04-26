@@ -16,7 +16,8 @@ param (
     [string]$CoreVersion = '2020.02.1',
     [string]$ZefVersion = '0.8.3',
     [switch]$KeepBuild = $False,
-    [switch]$KeepSource = $False
+    [switch]$KeepSource = $False,
+    [string]$Postfix = ''
 )
 
 Write-Host "Checking for necessary programs"
@@ -120,7 +121,7 @@ Set-Location ..
 
 Write-Host "Packaging"
 
-Compress-Archive prefix\* -DestinationPath "rakudo-$CoreVersion.zip"
+Compress-Archive prefix\* -DestinationPath "rakudo-$CoreVersion$Postfix.zip"
 
 Write-Host "Cleaning up"
 
