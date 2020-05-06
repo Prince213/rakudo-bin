@@ -13,14 +13,12 @@
 # limitations under the License.
 [CmdletBinding()]
 param (
-    [string]$CoreVersion = '2020.02.1',
-    [string]$ZefVersion = '0.8.3',
+    [string]$CoreVersion = '2020.05',
+    [string]$ZefVersion = '0.8.4',
     [switch]$KeepBuild = $False,
     [switch]$KeepSource = $False,
     [string]$Postfix = ''
 )
-
-Write-Host "Checking for necessary programs"
 
 where.exe /Q cl.exe
 if (-not $?) {
@@ -33,8 +31,6 @@ if (-not $?) {
     Write-Error "Can't locate perl."
     exit 1
 }
-
-Write-Host "Preparing sources"
 
 if (!(Test-Path -Path "MoarVM-$CoreVersion" -PathType Container)) {
     if (!(Test-Path -Path "MoarVM-$CoreVersion.tar.gz" -PathType Leaf)) {
@@ -84,18 +80,16 @@ if (!(Test-Path -Path "zef-$ZefVersion" -PathType Container)) {
     tar.exe xf "zef-$ZefVersion.tar.gz"
 }
 
-# Need to patch MoarVM-2020.02.1
-if ("x$CoreVersion" -eq "x2020.02.1") {
+# Need to patch MoarVM
+if ("x$CoreVersion" -eq "x2020.02.1" -or "x$CoreVersion" -eq "x2020.05") {
     where.exe /Q sed.exe
     if (-not $?) {
         Write-Error "Can't locate sed. You can get one from MSYS2."
         exit 1
     }
-    # See https://github.com/libtom/libtommath/pull/484
+    # See https://github.com/MoarVM/MoarVM/issues/1279
     sed.exe -i -e "s@if defined@if defined(_M_IX86) || defined@" "MoarVM-$CoreVersion/3rdparty/libtommath/bn_mp_set_double.c"
 }
-
-Write-Host "Building"
 
 $BuildRoot = Get-Location
 
@@ -119,11 +113,7 @@ Set-Location "zef-$ZefVersion"
 & "$BuildRoot/prefix/bin/raku.exe" -I . bin/zef install .
 Set-Location ..
 
-Write-Host "Packaging"
-
 Compress-Archive prefix\* -DestinationPath "rakudo-$CoreVersion$Postfix.zip"
-
-Write-Host "Cleaning up"
 
 Remove-Item -Recurse prefix
 
@@ -135,10 +125,16 @@ if (!$KeepBuild) {
 }
 
 if (!$KeepSource) {
-    Remove-Item "MoarVM-$CoreVersion.tar.gz"
-    Remove-Item "nqp-$CoreVersion.tar.gz"
-    Remove-Item "rakudo-$CoreVersion.tar.gz"
-    Remove-Item "zef-$ZefVersion.tar.gz"
+    if (Test-Path -Path "MoarVM-$CoreVersion.tar.gz" -PathType Leaf) {
+        Remove-Item "MoarVM-$CoreVersion.tar.gz"
+    }
+    if (Test-Path -Path "nqp-$CoreVersion.tar.gz" -PathType Leaf) {
+        Remove-Item "nqp-$CoreVersion.tar.gz"
+    }
+    if (Test-Path -Path "rakudo-$CoreVersion.tar.gz" -PathType Leaf) {
+        Remove-Item "rakudo-$CoreVersion.tar.gz"
+    }
+    if (Test-Path -Path "zef-$ZefVersion.tar.gz" -PathType Leaf) {
+        Remove-Item "zef-$ZefVersion.tar.gz"
+    }
 }
-
-Write-Host "Build succeeded"

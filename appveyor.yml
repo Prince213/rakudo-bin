@@ -5,11 +5,11 @@ platform:
   - x86
   - x64
 environment:
-  CoreVersion: 2020.02.1
-  ZefVersion: 0.8.3
+  CoreVersion: 2020.05
+  ZefVersion: 0.8.4
 build_script:
   - cmd: call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" %PLATFORM%
-  - cmd: set "PATH=C:\Strawberry\perl\site\bin;C:\Strawberry\perl\bin;C:\Strawberry\c\bin;%PATH%""
+  - cmd: set "PATH=C:\Strawberry\perl\site\bin;C:\Strawberry\perl\bin;C:\Strawberry\c\bin;%PATH%"
   - ps: .\BuildAndPackage.ps1 -CoreVersion "$env:CoreVersion" -ZefVersion "$env:ZefVersion" -Postfix "-$env:PLATFORM"
 artifacts:
   - path: rakudo-$(CoreVersion)-$(PLATFORM).zip
