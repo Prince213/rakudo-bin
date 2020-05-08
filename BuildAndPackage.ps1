@@ -102,7 +102,7 @@ nmake.exe install
 Set-Location ..
 
 Set-Location "nqp-$CoreVersion"
-perl.exe ./Configure.pl "--prefix=$BuildRoot/prefix" --backends=moar "--with-moar=$BuildRoot/prefix/bin/moar.exe" --make-install
+perl.exe ./Configure.pl "--prefix=$BuildRoot/prefix" --relocatable --backends=moar "--with-moar=$BuildRoot/prefix/bin/moar.exe" --make-install
 Set-Location ..
 
 Set-Location "rakudo-$CoreVersion"
