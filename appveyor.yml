@@ -5,12 +5,8 @@ platform:
   - x86
   - x64
 environment:
-  ZefVersion: 0.8.4
-
-  matrix:
-    - CoreVersion: 2020.02.1
-
-    - CoreVersion: 2020.05
+  CoreVersion: 2021.03
+  ZefVersion: 0.11.6
 build_script:
   - cmd: call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" %PLATFORM%
   - cmd: set "PATH=C:\Strawberry\perl\site\bin;C:\Strawberry\perl\bin;C:\Strawberry\c\bin;%PATH%"

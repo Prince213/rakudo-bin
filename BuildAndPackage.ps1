@@ -1,4 +1,4 @@
-# Copyright 2020 Sizhe Zhao
+# Copyright 2020-2021 Sizhe Zhao
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,8 +13,8 @@
 # limitations under the License.
 [CmdletBinding()]
 param (
-    [string]$CoreVersion = '2020.05',
-    [string]$ZefVersion = '0.8.4',
+    [string]$CoreVersion = '2021.03',
+    [string]$ZefVersion = '0.11.6',
     [switch]$KeepBuild = $False,
     [switch]$KeepSource = $False,
     [string]$Postfix = ''
