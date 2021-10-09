@@ -13,8 +13,8 @@
 # limitations under the License.
 [CmdletBinding()]
 param (
-    [string]$CoreVersion = '2021.08',
-    [string]$ZefVersion = '0.11.11',
+    [string]$CoreVersion = '2021.09',
+    [string]$ZefVersion = '0.12.0',
     [switch]$KeepBuild = $False,
     [switch]$KeepSource = $False,
     [string]$Postfix = ''
